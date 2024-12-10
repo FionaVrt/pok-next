@@ -1,8 +1,12 @@
+import "./page.css";
+
 export default async function Page({ 
     params,
 }: {
-    params: Promise<{ id: number }>
+    params: Promise<{ name: string }>
 }) {
-    const id  = (await params).id;
-    return (<div>Mon pokemon {id}</div>)
+    const name  = (await params).name;
+    return (
+        <div>Mon pokemon {`/pokemon/${name}`}</div>
+    )
 }

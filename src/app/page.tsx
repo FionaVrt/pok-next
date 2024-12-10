@@ -1,5 +1,7 @@
+"use client"
+
 import styles from "./page.module.css";
-import PokemonList from "./components/listPokemons/listPokemons";
+import PokemonList from "./components/homePage/homePage";
 
 export default function Home() {
   return (

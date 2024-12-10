@@ -1,6 +1,6 @@
 "use client";
 
-import "./listPokemons.css";
+import "./homePage.css";
 import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from "react";
 

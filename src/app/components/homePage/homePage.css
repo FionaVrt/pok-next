@@ -1,0 +1,78 @@
+/* reset css */
+html {
+  font-size: 62.5%;
+  font-weight: 300;
+  scroll-behavior: smooth;
+}
+
+body {
+  font: 1.6rem "Open-Sans", sans-serif;
+  margin: 0;
+  line-height: 1.6;
+  letter-spacing: 0.1rem;
+  height: 100vh;
+  scroll-behavior: smooth;
+}
+
+h1,
+h2,
+h3,
+p,
+figure,
+ul,
+ol,
+button {
+  margin: 0;
+  padding: 0;
+  font-weight: 100;
+  list-style-type: none;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+  color: #222;
+}
+
+* {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+:root {
+  --white: rgb(250, 250, 250);
+  --item: #dd5347;
+}
+
+/* css page principale */
+
+body {
+  overflow: visible;
+}
+
+div {
+  height: auto;
+}
+
+h1 {
+  text-align: center;
+  font-weight: bold;
+}
+
+ul {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px; 
+    padding: 0;
+    justify-items: center;
+}
+
+li {
+  margin: 10px;
+  text-align: center;
+}
+
+img {
+  width: 100px;
+  height: 100px;
+}
