@@ -1,3 +1,10 @@
+Poke API :
+
+Membres de l'équipe : Fiona Ververt--riga ; Cynthia Apura ; Hermione Tetard
+
+
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
