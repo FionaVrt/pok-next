@@ -1,4 +1,4 @@
-/* reset css */
+/* Reset CSS */
 html {
   font-size: 62.5%;
   font-weight: 300;
@@ -11,21 +11,13 @@ body {
   line-height: 1.6;
   letter-spacing: 0.1rem;
   height: 100vh;
-  scroll-behavior: smooth;
 }
 
-h1,
-h2,
-h3,
-p,
-figure,
-ul,
-ol,
-button {
+h1, h2, h3, p, figure, ul, ol, button {
   margin: 0;
   padding: 0;
   font-weight: 100;
-  list-style-type: none;
+  list-style: none;
   border: none;
 }
 
@@ -36,43 +28,106 @@ a {
 
 * {
   box-sizing: border-box;
-  max-width: 100%;
 }
 
 :root {
-  --white: rgb(250, 250, 250);
-  --item: #dd5347;
+  --color-fire: #f08030;
+  --color-water: #6890f0;
+  --color-grass: #78c850;
+  --color-electric: #f8d030;
+  --color-ice: #98d8d8;
+  --color-fighting: #c03028;
+  --color-poison: #a040a0;
+  --color-ground: #e0c068;
+  --color-flying: #a890f0;
+  --color-psychic: #f85888;
+  --color-bug: #a8b820;
+  --color-rock: #b8a038;
+  --color-ghost: #705898;
+  --color-dragon: #7038f8;
+  --color-dark: #705848;
+  --color-steel: #b8b8d0;
+  --color-fairy: #f0b6bc;
 }
 
-/* css page principale */
-
+/* Page principale */
 body {
   overflow: visible;
-}
-
-div {
-  height: auto;
 }
 
 h1 {
   text-align: center;
   font-weight: bold;
+  margin-bottom: 20px;
 }
 
 ul {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px; 
-    padding: 0;
-    justify-items: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 30px 3px;
+  padding: 0;
+  justify-items: center;
 }
 
-li {
-  margin: 10px;
+.pokemon-card {
+  background-color: #f3f3f3;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 0;
   text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 150px;         
+  height: 200px;        
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pokemon-name {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 10px 0;
 }
 
 img {
   width: 100px;
   height: 100px;
+  margin: 0 auto;
 }
+
+button {
+  padding: 10px 15px;
+  border-radius: 5px;
+  color: #222;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+  color: #fff;
+}
+
+button[class*="btn-"]:hover {
+  background-color: var(--color);
+}
+
+button.btn-fire:hover { --color: var(--color-fire); }
+button.btn-water:hover { --color: var(--color-water); }
+button.btn-grass:hover { --color: var(--color-grass); }
+button.btn-electric:hover { --color: var(--color-electric); }
+button.btn-ice:hover { --color: var(--color-ice); }
+button.btn-fighting:hover { --color: var(--color-fighting); }
+button.btn-poison:hover { --color: var(--color-poison); }
+button.btn-ground:hover { --color: var(--color-ground); }
+button.btn-flying:hover { --color: var(--color-flying); }
+button.btn-psychic:hover { --color: var(--color-psychic); }
+button.btn-bug:hover { --color: var(--color-bug); }
+button.btn-rock:hover { --color: var(--color-rock); }
+button.btn-ghost:hover { --color: var(--color-ghost); }
+button.btn-dragon:hover { --color: var(--color-dragon); }
+button.btn-dark:hover { --color: var(--color-dark); }
+button.btn-steel:hover { --color: var(--color-steel); }
+button.btn-fairy:hover { --color: var(--color-fairy); }

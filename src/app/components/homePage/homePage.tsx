@@ -13,9 +13,10 @@ interface Pokemon {
 interface DetailedPokemon {
   name: string;
   sprite: string; // URL de l'image du Pokemon
+  type: string; // type du pokemon
 }
 
-export default function PokemonList () {
+export default function PokemonList() {
   const router = useRouter();
   const [pokemonList, setPokemonList] = useState<DetailedPokemon[]>([]); // Stocke les donnees detaillees des Pokémon
   const [loading, setLoading] = useState<boolean>(true); // Indique si les donnees chargent
@@ -34,6 +35,7 @@ export default function PokemonList () {
           return {
             name: pokemonData.name,
             sprite: pokemonData.sprites.front_default, // URL de l'image
+            type: pokemonData.types[0].type.name,
           };
         });
 
@@ -58,13 +60,15 @@ export default function PokemonList () {
       <h1>Liste des Pokemons</h1>
       <ul>
         {pokemonList.map((pokemon, index) => (
-          <li key={index}>
+          <li key={index} className="pokemon-card">
             <img src={pokemon.sprite} alt={pokemon.name} />
-            <p>{pokemon.name}</p>
-            <button onClick={() => router.push(`/pokemon/${index}`)}>Voir</button>
+            <p className="pokemon-name">{pokemon.name}</p>
+            <button className={`btn-${pokemon.type}`} onClick={() => router.push(`/pokemon/${index}`)}>
+              Voir
+            </button>
           </li>
         ))}
-      </ul> 
+      </ul>
     </div>
   );
 };
