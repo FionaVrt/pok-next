@@ -1,8 +1,10 @@
 "use client";
 
+import "./listPokemons.css";
+import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from "react";
 
-// Définition des types pour les données des Pokémon
+// Definition des types pour les donnees des Pokemon
 interface Pokemon {
   name: string;
   url: string;
@@ -10,21 +12,22 @@ interface Pokemon {
 
 interface DetailedPokemon {
   name: string;
-  sprite: string; // URL de l'image du Pokémon
+  sprite: string; // URL de l'image du Pokemon
 }
 
-const PokemonList: React.FC = () => {
-  const [pokemonList, setPokemonList] = useState<DetailedPokemon[]>([]); // Stocke les données détaillées des Pokémon
-  const [loading, setLoading] = useState<boolean>(true); // Indique si les données chargent
+export default function PokemonList () {
+  const router = useRouter();
+  const [pokemonList, setPokemonList] = useState<DetailedPokemon[]>([]); // Stocke les donnees detaillees des Pokémon
+  const [loading, setLoading] = useState<boolean>(true); // Indique si les donnees chargent
 
   useEffect(() => {
-    // Appelle l'API pour récupérer les Pokémon
+    // Appelle l'API pour recuperer les Pokemon
     const fetchPokemon = async () => {
       try {
         const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=100");
-        const data = await response.json(); // Convertit la réponse en JSON
+        const data = await response.json(); // Convertit la reponse en JSON
 
-        // Récupère les données détaillées pour chaque Pokémon
+        // Recupere les donnees detaillees pour chaque Pokemon
         const detailedPokemonPromises = data.results.map(async (pokemon: Pokemon) => {
           const pokemonResponse = await fetch(pokemon.url);
           const pokemonData = await pokemonResponse.json();
@@ -35,10 +38,10 @@ const PokemonList: React.FC = () => {
         });
 
         const detailedPokemonList = await Promise.all(detailedPokemonPromises);
-        setPokemonList(detailedPokemonList); // Stocke les Pokémon détaillés
-        setLoading(false); // Arrête le chargement
+        setPokemonList(detailedPokemonList); // Stocke les Pokemon detailles
+        setLoading(false); // Arrete le chargement
       } catch (error) {
-        console.error("Erreur lors de la récupération des Pokémon :", error);
+        console.error("Erreur lors de la recuperation des Pokemon :", error);
         setLoading(false);
       }
     };
@@ -52,17 +55,16 @@ const PokemonList: React.FC = () => {
 
   return (
     <div>
-      <h1>Liste des Pokémon</h1>
-      <ul style={{ display: "flex", flexWrap: "wrap", listStyle: "none", padding: 0 }}>
+      <h1>Liste des Pokemons</h1>
+      <ul>
         {pokemonList.map((pokemon, index) => (
-          <li key={index} style={{ margin: "10px", textAlign: "center" }}>
-            <img src={pokemon.sprite} alt={pokemon.name} width="100" height="100" />
+          <li key={index}>
+            <img src={pokemon.sprite} alt={pokemon.name} />
             <p>{pokemon.name}</p>
+            <button onClick={() => router.push(`/pokemon/${index}`)}>Voir</button>
           </li>
         ))}
-      </ul>
+      </ul> 
     </div>
   );
 };
-
-export default PokemonList;
