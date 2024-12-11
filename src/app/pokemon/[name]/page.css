@@ -1,0 +1,14 @@
+.pokemon-details {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+.pokemon-image {
+  width: 150px;
+  height: 150px;
+}
+
+strong {
+  color: #333;
+}

@@ -3,6 +3,7 @@
 import "./homePage.css";
 import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from "react";
+import Image from 'next/image';
 
 // Definition des types pour les donnees des Pokemon
 interface Pokemon {
@@ -66,6 +67,7 @@ export default function PokemonList() {
 
   return (
     <div>
+<<<<<<< Updated upstream
       <h1>Liste des Pokémons</h1>
 
       <input
@@ -86,6 +88,23 @@ export default function PokemonList() {
           <option key={index} value={type}>
             {type}
           </option>
+=======
+      <h1>Liste des Pokemons</h1>
+      <ul>
+        {pokemonList.map((pokemon, index) => (
+          <li key={index}>
+            <Image
+              src={pokemon.sprite}
+              alt={pokemon.name}
+              width={96}
+              height={96}
+            />
+            <p className="pokemon-name">{pokemon.name}</p>
+            <button className={`btn-${pokemon.type}`} onClick={() => router.push(`/pokemon/${pokemon.name}`)}>
+              Voir
+            </button>
+          </li>
+>>>>>>> Stashed changes
         ))}
       </select>
 
