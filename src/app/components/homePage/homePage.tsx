@@ -66,47 +66,46 @@ export default function PokemonList() {
   }
 
   return (
-    <div>
-<<<<<<< Updated upstream
-      <h1>Liste des Pokémons</h1>
+<div>
+  <h1>Liste des Pokémons</h1>
 
-      <input
-        type="text"
-        placeholder="Rechercher..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className="search-input"
-      />
+  <input
+    type="text"
+    placeholder="Rechercher..."
+    value={searchTerm}
+    onChange={(e) => setSearchTerm(e.target.value)}
+    className="search-input"
+  />
 
-      <select
-        value={filterType}
-        onChange={(e) => setFilterType(e.target.value)}
-        className="filter-select"
-      >
-        <option value="">Tous les types</option>
-        {uniqueTypes.map((type, index) => (
-          <option key={index} value={type}>
-            {type}
-          </option>
-=======
-      <h1>Liste des Pokemons</h1>
-      <ul>
-        {pokemonList.map((pokemon, index) => (
-          <li key={index}>
-            <Image
-              src={pokemon.sprite}
-              alt={pokemon.name}
-              width={96}
-              height={96}
-            />
-            <p className="pokemon-name">{pokemon.name}</p>
-            <button className={`btn-${pokemon.type}`} onClick={() => router.push(`/pokemon/${pokemon.name}`)}>
-              Voir
-            </button>
-          </li>
->>>>>>> Stashed changes
-        ))}
-      </select>
+  <select
+    value={filterType}
+    onChange={(e) => setFilterType(e.target.value)}
+    className="filter-select"
+  >
+    <option value="">Tous les types</option>
+    {uniqueTypes.map((type, index) => (
+      <option key={index} value={type}>
+        {type}
+      </option>
+    ))}
+  </select>
+
+  <ul>
+    {pokemonList.map((pokemon, index) => (
+      <li key={index}>
+        <Image
+          src={pokemon.sprite}
+          alt={pokemon.name}
+          width={96}
+          height={96}
+        />
+        <p className="pokemon-name">{pokemon.name}</p>
+        <button className={`btn-${pokemon.types[0]}`} onClick={() => router.push(`/pokemon/${pokemon.name}`)}>
+          Voir
+        </button>
+      </li>
+    ))}
+  </ul>
 
       <ul>
         {filteredPokemonList.length > 0 ? (
@@ -119,14 +118,20 @@ export default function PokemonList() {
               <img src={pokemon.sprite} alt={pokemon.name} />
               <p className="pokemon-name">{pokemon.name}</p>
               <div className="pokemon-types">
-                {pokemon.types.map((type, i) => (
-                  <img
-                    key={i}
-                    className="type-logo"
-                    src={`/logo/${type}.svg`}
-                    alt={type}
-                  />
-                ))}
+            {pokemon.types.map((type, i) => (
+              <React.Fragment key={i}>
+                <Image
+                  className="type-logo"
+                  src={`/logo/${type}.svg`}
+                  alt={type}
+                  width={96}
+                  height={96}
+                />
+                <button className={`btn-${pokemon.types[0]}`} onClick={() => router.push(`/pokemon/${pokemon.name}`)}>
+                  Voir
+                </button>
+              </React.Fragment>
+            ))}
               </div>
             </li>
           ))
