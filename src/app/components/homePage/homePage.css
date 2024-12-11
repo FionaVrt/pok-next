@@ -31,23 +31,24 @@ a {
 }
 
 :root {
-  --color-fire: #f08030;
-  --color-water: #6890f0;
-  --color-grass: #78c850;
-  --color-electric: #f8d030;
-  --color-ice: #98d8d8;
-  --color-fighting: #c03028;
-  --color-poison: #a040a0;
-  --color-ground: #e0c068;
-  --color-flying: #a890f0;
-  --color-psychic: #f85888;
-  --color-bug: #a8b820;
-  --color-rock: #b8a038;
-  --color-ghost: #705898;
-  --color-dragon: #7038f8;
-  --color-dark: #705848;
-  --color-steel: #b8b8d0;
-  --color-fairy: #f0b6bc;
+  --normal: #A8A878;
+  --fire: #F08030;
+  --water: #6890F0;
+  --electric: #F8D030;
+  --grass: #78C850;
+  --ice: #98D8D8;
+  --fighting: #C03028;
+  --poison: #A040A0;
+  --ground: #E0C068;
+  --flying: #A890F0;
+  --psychic: #F85888;
+  --bug: #A8B820;
+  --rock: #B8A038;
+  --ghost: #705898;
+  --dragon: #7038F8;
+  --dark: #705848;
+  --steel: #B8B8D0;
+  --fairy: #F0B6BC;
 }
 
 /* Page principale */
@@ -63,71 +64,49 @@ h1 {
 
 ul {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); 
-  gap: 30px 3px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
   padding: 0;
-  justify-items: center;
+  list-style: none;
 }
 
 .pokemon-card {
-  background-color: #f3f3f3;
-  border-radius: 10px;
+  background-color: rgba(235, 235, 235, 0.6); 
   padding: 15px;
-  margin: 0;
+  border-radius: 10px;
   text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 150px;         
-  height: 200px;        
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+  height: 200px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
+.pokemon-card:hover {
+  background-color: rgba(169, 169, 169, 0.8); 
+  transform: scale(1.02);
+}
+
+.pokemon-card img {
+  max-height: 100px; 
+  object-fit: contain;
+}
+
 .pokemon-name {
-  font-size: 1.8rem;
   font-weight: bold;
+  text-transform: capitalize;
   margin: 10px 0;
 }
 
-img {
-  width: 100px;
-  height: 100px;
-  margin: 0 auto;
+.pokemon-types {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
 }
 
-button {
-  padding: 10px 15px;
-  border-radius: 5px;
-  color: #222;
-  background-color: #f5f5f5;
-  border: 1px solid #ccc;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
+.type-logo {
+  width: 25px; 
+  height: 25px; 
+  object-fit: contain;
 }
-
-button:hover {
-  color: #fff;
-}
-
-button[class*="btn-"]:hover {
-  background-color: var(--color);
-}
-
-button.btn-fire:hover { --color: var(--color-fire); }
-button.btn-water:hover { --color: var(--color-water); }
-button.btn-grass:hover { --color: var(--color-grass); }
-button.btn-electric:hover { --color: var(--color-electric); }
-button.btn-ice:hover { --color: var(--color-ice); }
-button.btn-fighting:hover { --color: var(--color-fighting); }
-button.btn-poison:hover { --color: var(--color-poison); }
-button.btn-ground:hover { --color: var(--color-ground); }
-button.btn-flying:hover { --color: var(--color-flying); }
-button.btn-psychic:hover { --color: var(--color-psychic); }
-button.btn-bug:hover { --color: var(--color-bug); }
-button.btn-rock:hover { --color: var(--color-rock); }
-button.btn-ghost:hover { --color: var(--color-ghost); }
-button.btn-dragon:hover { --color: var(--color-dragon); }
-button.btn-dark:hover { --color: var(--color-dark); }
-button.btn-steel:hover { --color: var(--color-steel); }
-button.btn-fairy:hover { --color: var(--color-fairy); }

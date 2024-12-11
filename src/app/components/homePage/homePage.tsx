@@ -13,29 +13,29 @@ interface Pokemon {
 interface DetailedPokemon {
   name: string;
   sprite: string; // URL de l'image du Pokemon
-  type: string; // type du pokemon
+  types: string[]; // type du pokemon
 }
 
 export default function PokemonList() {
   const router = useRouter();
   const [pokemonList, setPokemonList] = useState<DetailedPokemon[]>([]); // Stocke les donnees detaillees des Pokémon
   const [loading, setLoading] = useState<boolean>(true); // Indique si les donnees chargent
+  const [searchTerm, setSearchTerm] = useState<string>(""); // recherche
+  const [filterType, setFilterType] = useState<string>(""); // filtre
 
   useEffect(() => {
-    // Appelle l'API pour recuperer les Pokemon
     const fetchPokemon = async () => {
       try {
         const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=100");
         const data = await response.json(); // Convertit la reponse en JSON
 
-        // Recupere les donnees detaillees pour chaque Pokemon
         const detailedPokemonPromises = data.results.map(async (pokemon: Pokemon) => {
           const pokemonResponse = await fetch(pokemon.url);
           const pokemonData = await pokemonResponse.json();
           return {
             name: pokemonData.name,
             sprite: pokemonData.sprites.front_default, // URL de l'image
-            type: pokemonData.types[0].type.name,
+            types: pokemonData.types.map((t: any) => t.type.name),
           };
         });
 
@@ -51,24 +51,70 @@ export default function PokemonList() {
     fetchPokemon();
   }, []);
 
+  const filteredPokemonList = pokemonList.filter((pokemon) => {
+    return (
+      pokemon.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      (filterType === "" || pokemon.types.includes(filterType))
+    );
+  });
+
+  const uniqueTypes = Array.from(new Set(pokemonList.flatMap((pokemon) => pokemon.types)));
+
   if (loading) {
     return <p>Chargement en cours...</p>;
   }
 
   return (
     <div>
-      <h1>Liste des Pokemons</h1>
-      <ul>
-        {pokemonList.map((pokemon, index) => (
-          <li key={index} className="pokemon-card">
-            <img src={pokemon.sprite} alt={pokemon.name} />
-            <p className="pokemon-name">{pokemon.name}</p>
-            <button className={`btn-${pokemon.type}`} onClick={() => router.push(`/pokemon/${index}`)}>
-              Voir
-            </button>
-          </li>
+      <h1>Liste des Pokémons</h1>
+
+      <input
+        type="text"
+        placeholder="Rechercher..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="search-input"
+      />
+
+      <select
+        value={filterType}
+        onChange={(e) => setFilterType(e.target.value)}
+        className="filter-select"
+      >
+        <option value="">Tous les types</option>
+        {uniqueTypes.map((type, index) => (
+          <option key={index} value={type}>
+            {type}
+          </option>
         ))}
+      </select>
+
+      <ul>
+        {filteredPokemonList.length > 0 ? (
+          filteredPokemonList.map((pokemon, index) => (
+            <li
+              key={index}
+              className="pokemon-card"
+              onClick={() => router.push(`/pokemon/${index}`)}
+            >
+              <img src={pokemon.sprite} alt={pokemon.name} />
+              <p className="pokemon-name">{pokemon.name}</p>
+              <div className="pokemon-types">
+                {pokemon.types.map((type, i) => (
+                  <img
+                    key={i}
+                    className="type-logo"
+                    src={`/logo/${type}.svg`}
+                    alt={type}
+                  />
+                ))}
+              </div>
+            </li>
+          ))
+        ) : (
+          <p>Aucun Pokémon trouvé avec ce nom ou type.</p>
+        )}
       </ul>
     </div>
   );
-};
+}
