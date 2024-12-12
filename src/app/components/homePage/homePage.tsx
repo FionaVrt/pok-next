@@ -14,7 +14,6 @@ interface DetailedPokemon {
   name: string;
   sprite: string; // URL de l'image du Pokemon
   types: string[]; // type du pokemon
-  generation: string; // generation du pokemon
   height: number; // taille du pokemon
   weight: number; // poids du pokemon
 }
@@ -41,7 +40,6 @@ export default function PokemonList() {
             sprite: pokemonData.sprites.front_default, // URL de l'image
             types: pokemonData.types.map((t: any) => t.type.name),
             height: pokemonData.height,
-            generation: pokemonData.id.toString(),
             weight: pokemonData.weight,
           };
         });
@@ -66,14 +64,15 @@ export default function PokemonList() {
       );
     })
     .sort((a, b) => {
+      if (sortCriteria === "name") {
+        return sortOrder === "asc" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
+      }
       if (sortCriteria === "height") {
         return sortOrder === "asc" ? a.height - b.height : b.height - a.height;
       }
-
-      if (sortCriteria === "generation") {
-        return sortOrder === "asc" ? a.generation.localeCompare(b.generation) : b.generation.localeCompare(a.generation);
+      if (sortCriteria === "weight") {
+        return sortOrder === "asc" ? a.weight - b.weight : b.weight - a.weight;
       }
-
       return 0;
     });
 
@@ -85,31 +84,31 @@ export default function PokemonList() {
     <div>
       <h1>Liste des Pokémons</h1>
 
-      <input
-        type="text"
-        placeholder="Rechercher par nom ou type..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className="search-input"
-      />
+      <div className="controls">
+        <input
+          type="text"
+          placeholder="Rechercher par nom ou type..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="search-input"
+        />
 
-      <select value={sortCriteria} onChange={(e) => setSortCriteria(e.target.value)} className="filter-select">
-        <option value="">Trier par...</option>
-        <option value="height">Taille</option>
-        <option value="generation">Génération</option>
-      </select>
+        <select value={sortCriteria} onChange={(e) => setSortCriteria(e.target.value)} className="filter-select">
+          <option value="">Trier par...</option>
+          <option value="name">Nom</option>
+          <option value="height">Taille</option>
+          <option value="weight">Poids</option>
+        </select>
 
-      <button
-        onClick={() => {
-          if (sortCriteria === "") {
-            return;
-          }
-          setSortOrder(sortOrder === "asc" ? "desc" : "asc");
-        }}
-        className="sort-button"
-      >
-        {sortOrder === "asc" ? "Tri décroissant" : "Tri croissant"}
-      </button>
+        {sortCriteria && (
+          <button
+            onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
+            className="sort-button"
+          >
+            {sortOrder === "asc" ? "Tri décroissant" : "Tri croissant"}
+          </button>
+        )}
+      </div>
 
       <ul>
         {filteredPokemonList.length > 0 ? (
