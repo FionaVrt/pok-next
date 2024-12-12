@@ -17,7 +17,6 @@ interface DetailedPokemon {
   generation: string; // generation du pokemon
   height: number; // taille du pokemon
   weight: number; // poids du pokemon
-  index: number; // index du pokemon dans la liste d'origine
 }
 
 export default function PokemonList() {
@@ -34,7 +33,7 @@ export default function PokemonList() {
         const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=100");
         const data = await response.json(); // Convertit la reponse en JSON
 
-        const detailedPokemonPromises = data.results.map(async (pokemon: Pokemon, index: number) => {
+        const detailedPokemonPromises = data.results.map(async (pokemon: Pokemon) => {
           const pokemonResponse = await fetch(pokemon.url);
           const pokemonData = await pokemonResponse.json();
           return {
@@ -44,7 +43,6 @@ export default function PokemonList() {
             height: pokemonData.height,
             generation: pokemonData.id.toString(),
             weight: pokemonData.weight,
-            index: index, // Ajout de l'index pour garder l'ordre de l'API
           };
         });
 
@@ -70,30 +68,18 @@ export default function PokemonList() {
     .sort((a, b) => {
       if (sortCriteria === "height") {
         return sortOrder === "asc" ? a.height - b.height : b.height - a.height;
-      } else if (sortCriteria === "generation") {
-        return sortOrder === "asc" ? a.generation.localeCompare(b.generation) : b.generation.localeCompare(a.generation);
-      } else if (sortCriteria === "") {
-        // Si aucun critère de tri n'est sélectionné, tri par ordre alphabétique
-        return sortOrder === "asc" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
-      } else {
-        return sortOrder === "asc" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
       }
+
+      if (sortCriteria === "generation") {
+        return sortOrder === "asc" ? a.generation.localeCompare(b.generation) : b.generation.localeCompare(a.generation);
+      }
+
+      return 0;
     });
 
   if (loading) {
     return <p>Chargement en cours...</p>;
   }
-
-  const handleSortOrderChange = () => {
-    // Si le critère de tri est déjà défini, on inverse seulement l'ordre
-    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
-  };
-
-  const handleSortCriteriaChange = (criteria: string) => {
-    // Si un critère est sélectionné, on le met à jour
-    setSortCriteria(criteria);
-    setSortOrder("asc"); // Par défaut, on commence par un tri croissant
-  };
 
   return (
     <div>
@@ -107,24 +93,27 @@ export default function PokemonList() {
         className="search-input"
       />
 
-      <select 
-        value={sortCriteria} 
-        onChange={(e) => handleSortCriteriaChange(e.target.value)} 
-        className="filter-select"
-      >
+      <select value={sortCriteria} onChange={(e) => setSortCriteria(e.target.value)} className="filter-select">
         <option value="">Trier par...</option>
         <option value="height">Taille</option>
         <option value="generation">Génération</option>
-        <option value="name">Nom</option>
       </select>
 
-      <button onClick={handleSortOrderChange} className="sort-button">
+      <button
+        onClick={() => {
+          if (sortCriteria === "") {
+            return;
+          }
+          setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+        }}
+        className="sort-button"
+      >
         {sortOrder === "asc" ? "Tri décroissant" : "Tri croissant"}
       </button>
 
-      {filteredPokemonList.length > 0 ? (
-        <ul>
-          {filteredPokemonList.map((pokemon, index) => (
+      <ul>
+        {filteredPokemonList.length > 0 ? (
+          filteredPokemonList.map((pokemon, index) => (
             <li key={index} className="pokemon-card" onClick={() => router.push(`/pokemon/${pokemon.name}`)}>
               <img src={pokemon.sprite} alt={pokemon.name} />
               <p className="pokemon-name">{pokemon.name}</p>
@@ -132,16 +121,16 @@ export default function PokemonList() {
                 {pokemon.types.map((type, i) => (
                   <div key={i} className="type-logo">
                     <img src={`/logo/${type}.svg`} alt={type} />
-                    <span className="type-name">{type}</span> 
+                    <span className="type-name">{type}</span>
                   </div>
                 ))}
               </div>
             </li>
-          ))}
-        </ul>
-      ) : (
-        <p>Aucun Pokémon trouvé</p>
-      )}
+          ))
+        ) : (
+          <p>Aucun Pokémon trouvé</p>
+        )}
+      </ul>
     </div>
   );
 }
