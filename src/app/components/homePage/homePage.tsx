@@ -3,6 +3,7 @@
 import "./homePage.css";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
+import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
 // Definition des types pour les donnees des Pokemon
 interface Pokemon {
@@ -105,7 +106,15 @@ export default function PokemonList() {
             onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
             className="sort-button"
           >
-            {sortOrder === "asc" ? "Tri décroissant" : "Tri croissant"}
+            {sortOrder === "asc" ? (
+              <>
+                <FaArrowUp /> 
+              </>
+            ) : (
+              <>
+                <FaArrowDown /> 
+              </>
+            )}
           </button>
         )}
       </div>
