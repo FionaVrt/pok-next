@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { BackButton } from "../../components/backButton/backButton";
+import "./page.css";
 
 async function fetchPokemonDetails(name: string) {
     try {
