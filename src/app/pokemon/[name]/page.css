@@ -1,10 +1,10 @@
 .pokemon-details {
   text-align: center;
   font-family: 'Lato', sans-serif;
-  margin: 20px auto; /* Centré horizontalement */
+  margin: 20px auto; 
   padding: 20px;
-  max-width: 400px; /* Limite la largeur pour une apparence verticale */
-  background-color: rgba(17, 25, 40, 0.6); /* Transparence adaptée à l'arrière-plan */
+  max-width: 400px; 
+  background-color: rgba(17, 25, 40, 0.6); 
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(8px) saturate(180%);
@@ -12,8 +12,8 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
-  flex-direction: column; /* Organisation en colonne */
-  align-items: center; /* Contenu centré */
+  flex-direction: column; 
+  align-items: center; 
 }
 
 .pokemon-details:hover {
@@ -50,7 +50,7 @@ strong {
   font-size: 1rem;
   line-height: 1.5;
   letter-spacing: 1px;
-  text-align: center; /* Centre le texte */
+  text-align: center; 
 }
 
 /* Animation pour une transition douce */
@@ -67,4 +67,23 @@ strong {
 
 .pokemon-details {
   animation: fadeIn 0.8s ease-in-out;
+}
+
+
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+.title .btn {
+  margin-left: 0;
+}
+
+.title .btn img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; 
 }

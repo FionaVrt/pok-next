@@ -6,7 +6,7 @@ export function BackButton() {
     const router = useRouter();
     return (
         <button className="btn" onClick={() => router.push("/")}>
-            Retour
+            <img src="/arrow/arrow.svg" alt=""/>
         </button>
     );
 }

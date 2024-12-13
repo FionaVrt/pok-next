@@ -33,8 +33,11 @@ export default async function PokemonPage({
 
     return (
         <div className="pokemon-details">
-            <h1>{pokemonData.name}</h1>
-            <BackButton />
+            <div className="title"> 
+                <BackButton />
+                <h1>{pokemonData.name}</h1>
+                
+            </div>
             <Image
                 src={pokemonData.sprites.front_default}
                 alt={pokemonData.name}
