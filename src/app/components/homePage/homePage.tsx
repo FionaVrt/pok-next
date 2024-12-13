@@ -136,7 +136,7 @@ export default function PokemonList() {
             </li>
           ))
         ) : (
-          <p>Aucun Pokémon trouvé</p>
+          <p className="error">Aucun Pokémon trouvé</p>
         )}
       </ul>
     </div>
