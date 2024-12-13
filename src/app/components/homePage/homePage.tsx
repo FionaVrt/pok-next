@@ -2,6 +2,7 @@
 
 import "./homePage.css";
 import { useRouter } from "next/navigation";
+import ScrollToTop from "../topButton/topButton";
 import React, { useState, useEffect } from "react";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
@@ -83,7 +84,7 @@ export default function PokemonList() {
 
   return (
     <div>
-      <h1>Liste des Pokémons</h1>
+      <h1 id="scroll">Liste des Pokémons</h1>
 
       <div className="controls">
         <input
@@ -139,6 +140,9 @@ export default function PokemonList() {
           <p className="error">Aucun Pokémon trouvé</p>
         )}
       </ul>
+
+      <ScrollToTop />
+
     </div>
   );
 }
