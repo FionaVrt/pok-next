@@ -2,6 +2,7 @@
 
 import "./homePage.css";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import ScrollToTop from "../topButton/topButton";
 import React, { useState, useEffect } from "react";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
@@ -40,7 +41,7 @@ export default function PokemonList() {
           return {
             name: pokemonData.name,
             sprite: pokemonData.sprites.front_default, // URL de l'image
-            types: pokemonData.types.map((t: any) => t.type.name),
+            types: pokemonData.types.map((t: { type: { name: string } }) => t.type.name),
             height: pokemonData.height,
             weight: pokemonData.weight,
           };
@@ -124,12 +125,12 @@ export default function PokemonList() {
         {filteredPokemonList.length > 0 ? (
           filteredPokemonList.map((pokemon, index) => (
             <li key={index} className="pokemon-card" onClick={() => router.push(`/pokemon/${pokemon.name}`)}>
-              <img src={pokemon.sprite} alt={pokemon.name} />
+              <Image src={pokemon.sprite} alt={pokemon.name} width={96} height={96} />
               <p className="pokemon-name">{pokemon.name}</p>
               <div className="pokemon-types">
                 {pokemon.types.map((type, i) => (
                   <div key={i} className="type-logo">
-                    <img src={`/logo/${type}.svg`} alt={type} />
+                    <Image src={`/logo/${type}.svg`} alt={type} width={32} height={32} />
                     <span className="type-name">{type}</span>
                   </div>
                 ))}

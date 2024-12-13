@@ -46,7 +46,7 @@ export default async function PokemonPage({
             />
             <p className="text-black">
                 <strong>Type:</strong>
-                {pokemonData.types.map((type: any) => type.type.name).join(", ")}
+                {pokemonData.types.map((type: { type: { name: string } }) => type.type.name).join(", ")}
             </p>
             <p className="text-black">
                 <strong>Poids:</strong> {pokemonData.weight}
