@@ -36,7 +36,6 @@ export default async function PokemonPage({
             <div className="title"> 
                 <BackButton />
                 <h1>{pokemonData.name}</h1>
-                
             </div>
             <Image
                 src={pokemonData.sprites.front_default}
@@ -45,12 +44,16 @@ export default async function PokemonPage({
                 width={96}
                 height={96}
             />
-            <p>
-                <strong>Type:</strong>{" "}
+            <p className="text-black">
+                <strong>Type:</strong>
                 {pokemonData.types.map((type: any) => type.type.name).join(", ")}
             </p>
-            <p><strong>Poids:</strong> {pokemonData.weight}</p>
-            <p><strong>Taille:</strong> {pokemonData.height}</p>            
+            <p className="text-black">
+                <strong>Poids:</strong> {pokemonData.weight}
+            </p>
+            <p className="text-black">
+                <strong>Taille:</strong> {pokemonData.height}
+            </p>
         </div>
     );
 }
