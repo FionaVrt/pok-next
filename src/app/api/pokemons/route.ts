@@ -7,7 +7,7 @@ export interface ApiResponse {
     results: Pokemon[];
 }
 
-export async function GET(request: Request) {
+export async function GET() {
     const res = await fetch(
         "https://pokeapi.co/api/v2/pokemon?limit=100&offset=0"
     );
